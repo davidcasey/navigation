@@ -21,7 +21,7 @@
  * @param  {object}   el       The HTML element on which to apply IpcNavigation
  * @param  {object}   options  Optional: The options to override the defaults
  * @param  {function} callback Optional: Callback function to call after item
- * 													   has been added
+ *                             has been added
  * @return {object}            The IpcNavigation object
  */
 var IpcNavigation = function(el, options, callback) {
@@ -101,9 +101,9 @@ var IpcNavigation = function(el, options, callback) {
 	 * @param {object}   el       The pane element to add to the navigation. A
 	 *                            child element with a class .nav-title is required.
 	 * @param {number}   position Optional: The position index to append item,
-	 * 													  defaults to end.
+	 *                            defaults to end.
 	 * @param {function} callback Optional: Callback function to call after item
-	 * 													  has been added. el and position are passed as
+	 *                            has been added. el and position are passed as
 	 *                            arguments to the callback function.
 	 */
 	function addPane(el, position, callback) {
@@ -165,7 +165,7 @@ var IpcNavigation = function(el, options, callback) {
 	 * Remove a pane from IpcNavigation and remove its interactive button.
 	 * @param {object}   el       The pane element to remove from the navigation.
 	 * @param {function} callback Optional: Callback function to call after item
-	 * 													  has been removed. el is passed as an argument to
+	 *                            has been removed. el is passed as an argument to
 	 *                            the callback function.
 	 */
 	function removePane(el, callback) {
@@ -256,7 +256,7 @@ var IpcNavigation = function(el, options, callback) {
 	 * @param  {boolean}             state    Optional: true-active, false-inactive,
 	 *                                        undefined-toggle active state
 	 * @param  {function}            callback Optional: Callback function to call after item's
-	 * 													              active state has been changed. Passes the id(s) and
+	 *                                        active state has been changed. Passes the id(s) and
 	 *                                        activeState to the callback as arguments.
 	 * @return {boolean|array}                The new isActive state of the pane true | false
 	 */
