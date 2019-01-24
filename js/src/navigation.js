@@ -39,7 +39,7 @@ var IpcNavigation = function(el, options, callback) {
 		options = {};
 	}
 
-	var opts = _.merge({}, defaults, options);
+	var opts = Object.assign({}, defaults, options);
 
 	var ba = new BindActive(new Observable());
 
