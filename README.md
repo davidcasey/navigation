@@ -1,2 +1,4 @@
 # navigation
-Tabs, accordions, toggles, faqs ...
+Tabs, accordions, toggles
+
+[Demo](https://jsfiddle.net/davidcasey/w0oen6ms/)
