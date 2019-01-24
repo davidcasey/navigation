@@ -57,7 +57,7 @@ var IpcNavigation = function(el, options, callback) {
 
 	init();
 
-	typeof callback === 'function' && callback();
+	typeof callback === 'function' && callback(); // jshint ignore:line
 
 	return obj;
 
@@ -156,7 +156,7 @@ var IpcNavigation = function(el, options, callback) {
 		// Set initial active state (last active wins if !opts.multipleActive)
 		ba.setActive(id, el.classList.contains('active'));
 
-		typeof callback === 'function' && callback(el, position);
+		typeof callback === 'function' && callback(el, position); // jshint ignore:line
 		return id;
 	}
 
@@ -202,7 +202,7 @@ var IpcNavigation = function(el, options, callback) {
 		li.closest('ul').removeChild(li);
 		contentWrapper.removeChild(el);
 
-		typeof callback === 'function' && callback(el);
+		typeof callback === 'function' && callback(el); // jshint ignore:line
 		return el;
 	}
 
@@ -272,7 +272,7 @@ var IpcNavigation = function(el, options, callback) {
 		});
 		activeState = activeState.length === 1 ? activeState[0] : activeState;
 
-		typeof callback === 'function' && callback(el, activeState);
+		typeof callback === 'function' && callback(el, activeState); // jshint ignore:line
 
 		return activeState;
 	}
