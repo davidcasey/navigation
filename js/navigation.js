@@ -29,9 +29,10 @@ var IpcNavigation = function(el, options, callback) {
 
 	// Override these default options to customize navigation functionality
 	var defaults = {
-		multipleActive : false,  // Allows multiple panes to be active at the same time
-		noneActive     : false,  // Allows all panes to be inactive
-		topPadding     : 60,     // If accordion scrolls off viewport, scroll to top - topPadding
+		multipleActive      : false,  // Allows multiple panes to be active at the same time
+		noneActive          : false,  // Allows all panes to be inactive
+		topPadding          : 0,      // If accordion scrolls off viewport, scroll to top - topPadding
+		windowResizeRefresh : true,   // Send notifications to observers of current active state after window refresh
 	};
 
 
@@ -54,6 +55,7 @@ var IpcNavigation = function(el, options, callback) {
 		unbindActive : unbindActive,
 		subscribe    : ba.subscribe,
 		unsubscribe  : ba.unsubscribe,
+		refresh      : ba.notify,
 	};
 
 	init();
@@ -93,6 +95,11 @@ var IpcNavigation = function(el, options, callback) {
 		if (!opts.noneActive && !isActive(ids, 1).includes(true)) {
 			// TODO: Remove setTimeout hack. Wait for or cancel transition complete?
 			setTimeout(function() { ba.setActive(panes[0].getAttribute('id')); }, 800);
+		}
+
+		// Send notifications to observers of current active state after window refresh
+		if (opts.windowResizeRefresh) {
+			window.addEventListener('resize', debounce(300, ba.notify));
 		}
 	}
 
@@ -415,6 +422,19 @@ var IpcNavigation = function(el, options, callback) {
 	}
 
 
+	/**
+	 * Debounce a callback
+	 * @param {number}   latency  The timeout of the callback/debounce
+	 * @param {function} callback The function to call afer debouncing
+	 */
+	function debounce(latency, callback) {
+		return function() {
+			clearTimeout(callback.debounceState);
+			callback.debounceState = setTimeout(callback, latency);
+		};
+	}
+
+
 
 	/**
 	 * Observable Model
@@ -529,7 +549,7 @@ var IpcNavigation = function(el, options, callback) {
 		 */
 		accessor.notify = function(key) {
 			if (key === undefined) {
-				data.map(function(key) {
+				Object.keys(data).forEach(function(key) {
 					notify(key, data[key]);
 				});
 			} else {
