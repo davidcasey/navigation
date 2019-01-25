@@ -31,6 +31,7 @@ var IpcNavigation = function(el, options, callback) {
 	var defaults = {
 		multipleActive : false,  // Allows multiple panes to be active at the same time
 		noneActive     : false,  // Allows all panes to be inactive
+		topPadding     : 60,     // If accordion scrolls off viewport, scroll to top - topPadding
 	};
 
 
@@ -400,14 +401,14 @@ var IpcNavigation = function(el, options, callback) {
 			var rect = el.closest('.nav-pane').getBoundingClientRect();
 			// setTimeout: if scroll is at the end of the page, scrollBy does not activate.
 			setTimeout(function() {
-				if (rect.y && rect.y < 0) {
+				if (rect.y && rect.y < 0 + opts.topPadding) {
 					window.scrollBy({
-						top: rect.y,
+						top: rect.y - opts.topPadding,
 						left: 0,
 						behavior: 'smooth'
 					});
-				} else if (rect.top && rect.top < 0) { // IE
-					window.scrollBy(0, rect.top);
+				} else if (rect.top && rect.top < 0 + opts.topPadding) { // IE
+					window.scrollBy(0, rect.top - opts.topPadding);
 				}
 			}, 50);
 		});

@@ -1,0 +1,165 @@
+
+$spacer: 1rem;
+$nav-tabs-border-width: 1px;
+$nav-tabs-border-color: darkgray;
+$color1: blue;
+$gray: gray;
+$white: white;
+$grid-margin: 10px;
+$border-radius: 0.15rem;
+$button-padding-x: 10px;
+$button-padding-y: 10px;
+
+.ipc-navigation {
+	margin-bottom: $spacer;
+	.nav-pane {
+		&.active {
+			margin-bottom: $spacer;
+		}
+		> div {
+			height: auto;
+			overflow: hidden;
+		}
+		&:not(.active) > div {
+			height: 0;
+		}
+	}
+	&.accordions {
+		.nav {
+			display: none;
+		}
+		.nav-content {
+			border-bottom: $nav-tabs-border-width solid $nav-tabs-border-color;
+		}
+		.nav-pane {
+			&.active {
+				margin-bottom: $spacer;
+				.nav-title::after {
+					content: "\f106";
+				}
+			}
+			> div {
+				transition: height 0.2s ease-out;
+			}
+		}
+		.nav-title {
+			border-top: $nav-tabs-border-width solid $nav-tabs-border-color;
+			box-shadow: none;
+			color: $color1;
+			cursor: pointer;
+			display: block;
+			font-size: 1.2rem;
+			font-weight: 500;
+			padding: 0.5rem 0;
+			&:hover,
+			&:focus {
+				background: none transparent;
+			}
+			&:focus {
+				outline: 1px dotted $color1;
+			}
+			&[data-icon]::before {
+				font-size: 1em;
+				margin-right: 0.2em;
+			}
+			&::after {
+				/* @include icon-font-pseudo-element; */
+				content: "\f107";
+				color: $gray;
+				float: right;
+				font-size: 1.25rem;
+				line-height: 1.25;
+				margin-right: $grid-margin;
+			}
+		}
+	}
+
+	&.tabs,
+	&.toggles {
+		.nav {
+			display: flex;
+			flex-wrap: wrap;
+			margin-bottom: $spacer;
+		}
+		.nav-link {
+			box-shadow: none;
+			display: block;
+			text-decoration: none;
+		}
+		.nav-title {
+			display: none;
+		}
+		.nav-pane {
+			> div {
+				display: block;
+				height: auto !important;
+			}
+			&:not(.active) > div {
+				display: none;
+			}
+		}
+	}
+
+	&.tabs {
+		.nav {
+			border-bottom: $nav-tabs-border-width solid $nav-tabs-border-color;
+		}
+		.nav-item {
+			/* @include pie-clearfix; */
+			margin: 0 0 (-$nav-tabs-border-width);
+			padding: 0;
+		}
+		.nav-link {
+			border: $nav-tabs-border-width solid transparent;
+			border-radius: $border-radius $border-radius 0 0;
+			color: $gray;
+			font-size: 0.8rem;
+			font-weight: 500;
+			padding: $grid-margin;
+			&:hover,
+			&:focus {
+				background: transparent;
+				border-color: lighten($nav-tabs-border-color, 25%) lighten($nav-tabs-border-color, 25%) transparent;
+			}
+			&.active,
+			&.active:hover,
+			&.active:focus {
+				border-color: $nav-tabs-border-color $nav-tabs-border-color $white;
+			}
+		}
+		[data-icon]::before {
+			margin-right: 0.2em;
+		}
+	}
+
+	&.toggles {
+		.nav {
+			/* @extend .button-group; */
+		}
+		.nav-link {
+			border: $nav-tabs-border-width solid $color1;
+			border-radius: $border-radius;
+			color: $color1;
+			overflow: hidden;
+			padding: $button-padding-y $button-padding-x;
+			&:hover,
+			&:focus {
+				color: $white;
+			}
+			&.active,
+			&.active:hover,
+			&.active:focus {
+				background: $color1;
+				color: $white;
+			}
+			&::before {
+				font-size: 1rem;
+			}
+			span {
+				display: inline-block;
+				text-indent: -999rem;
+			}
+		}
+	}
+
+}
