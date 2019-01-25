@@ -402,10 +402,10 @@ var IpcNavigation = function(el, options, callback) {
 	 * @param {object} el The element to expand
 	 */
 	function expandSection(el) {
-		// get the height of the element's inner content, regardless of its actual size
-		var sectionHeight = el.scrollHeight;
 		// reset height style to allow for window resize
 		el.style.height = null;
+		// get the height of the element's inner content, regardless of its actual size
+		var sectionHeight = el.scrollHeight;
 		// have the element transition to the height of its inner content
 		el.style.height = sectionHeight + 'px';
 		// when the next css transition finishes (which should be the one we just triggered)
