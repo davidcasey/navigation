@@ -97,9 +97,17 @@ var IpcNavigation = function(el, options, callback) {
 			setTimeout(function() { ba.setActive(panes[0].getAttribute('id')); }, 800);
 		}
 
-		// Send notifications to observers of current active state after window refresh
+		// After window refreshed, if the pane is active send notifications to
+		// observers of current state--this is necessary for responsive tabs.
 		if (opts.windowResizeRefresh) {
-			window.addEventListener('resize', debounce(300, ba.notify));
+			window.addEventListener('resize', debounce(300, function() {
+				var panes = obj.el.panes.querySelectorAll('.nav-pane');
+				Object.keys(panes).forEach(function(i) {
+					if (isActive(panes[i])) {
+						ba.notify(panes[i].getAttribute('id'));
+					}
+				});
+			}));
 		}
 	}
 
