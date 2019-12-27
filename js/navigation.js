@@ -413,27 +413,30 @@ var IpcNavigation = function(el, options, callback) {
 		var sectionHeight = el.scrollHeight;
 		// have the element transition to the height of its inner content
 		el.style.height = sectionHeight + 'px';
-		// when the next css transition finishes (which should be the one we just triggered)
-		el.addEventListener('transitionend', function handler(e) {
-			// remove this event listener so it only gets triggered once
-			el.removeEventListener('transitionend', handler);
-			// remove "height" from the element's inline styles, so it can return to its initial value
-			el.style.height = null;
-			// ensure pane is still in viewport
-			var rect = el.closest('.nav-pane').getBoundingClientRect();
-			// setTimeout: if scroll is at the end of the page, scrollBy does not activate.
-			setTimeout(function() {
-				if (rect.y && rect.y < 0 + opts.topPadding) {
-					window.scrollBy({
-						top: rect.y - opts.topPadding,
-						left: 0,
-						behavior: 'smooth'
-					});
-				} else if (rect.top && rect.top < 0 + opts.topPadding) { // IE
-					window.scrollBy(0, rect.top - opts.topPadding);
-				}
-			}, 50);
-		});
+		// if there is a transition...
+		if (parseFloat(getComputedStyle(el)['transitionDuration'])) {
+			// when the next css transition finishes (which should be the one we just triggered)
+			el.addEventListener('transitionend', function handler(e) {
+				// remove this event listener so it only gets triggered once
+				el.removeEventListener('transitionend', handler);
+				// remove "height" from the element's inline styles, so it can return to its initial value
+				el.style.height = null;
+				// ensure pane is still in viewport
+				var rect = el.closest('.nav-pane').getBoundingClientRect();
+				// setTimeout: if scroll is at the end of the page, scrollBy does not activate.
+				setTimeout(function() {
+					if (rect.y && rect.y < 0 + opts.topPadding) {
+						window.scrollBy({
+							top: rect.y - opts.topPadding,
+							left: 0,
+							behavior: 'smooth'
+						});
+					} else if (rect.top && rect.top < 0 + opts.topPadding) { // IE
+						window.scrollBy(0, rect.top - opts.topPadding);
+					}
+				}, 50);
+			});
+		}
 	}
 
 
