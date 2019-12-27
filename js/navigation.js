@@ -82,8 +82,12 @@ var IpcNavigation = function(el, options, callback) {
 		el.insertBefore(navEl, el.firstChild);
 		obj.el.nav = navEl;
 
+		// Get direct children panes: (> .nav-pane)
+		var panes = [].slice.call(el.children).filter(function(c) {
+			return c.classList.contains('nav-pane');
+		});
+
 		// Reverse order, last set active wins when !opts.multipleActive
-		var panes = el.querySelectorAll('.nav-pane');
 		var ids = [];
 		Object.keys(panes).reverse().forEach(
 			function(i) {
@@ -101,6 +105,7 @@ var IpcNavigation = function(el, options, callback) {
 		// observers of current state--this is necessary for responsive tabs.
 		if (opts.windowResizeRefresh) {
 			window.addEventListener('resize', debounce(300, function() {
+				// TODO: should I get panes as done above?
 				var panes = obj.el.panes.querySelectorAll('.nav-pane');
 				Object.keys(panes).forEach(function(i) {
 					if (isActive(panes[i])) {
