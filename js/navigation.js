@@ -3,7 +3,7 @@
  * Navigation Module
  *
  * This script makes the following navigation items interactive and accessible:
- *   Tabs, Accordions, Toggles
+ *   Tabs, Accordions, Toggles, Button groups
  *
  * @module    IpcNavigation
  * @author    David R. Casey, https://studiocasey.com
